@@ -2,10 +2,10 @@ import { Movie } from "@/typings";
 import MovieCard from "./MovieCard";
 import { cn } from "@/lib/utils";
 
-type Props = { 
-    title?: string; 
-    movies: Movie[]; 
-    isVertical?: boolean 
+type Props = {
+  title?: string;
+  movies: Movie[];
+  isVertical?: boolean
 };
 
 function MoviesCarousel({ title, movies, isVertical }: Props) {
@@ -19,26 +19,30 @@ function MoviesCarousel({ title, movies, isVertical }: Props) {
           isVertical && "flex-col space-x-0 space-y-12"
         )}
       >
-        {isVertical
+        {movies && movies.length > 0 ? (isVertical
           ? movies.map((movie) => (
-              <div
-                key={movie.id}
-                className={cn(
-                  isVertical &&
-                    "flex flex-col space-y-5 mb-5 items-center lg:flex-row space-x-5"
-                )}
-              >
-                <MovieCard movie={movie} />
-                <div className="max-w-2xl">
-                  <p className="font-bold">
-                    {movie.title} ({movie.release_date?.split("-")[0]})
-                  </p>
-                  <hr className="mb-3" />
-                  <p className="">{movie.overview}</p>
-                </div>
+            <div
+              key={movie.id}
+              className={cn(
+                isVertical &&
+                "flex flex-col space-y-5 mb-5 items-center lg:flex-row space-x-5"
+              )}
+            >
+              <MovieCard movie={movie} />
+              <div className="max-w-2xl">
+                <p className="font-bold">
+                  {movie.title} ({movie.release_date?.split("-")[0]})
+                </p>
+                <hr className="mb-3" />
+                <p className="">{movie.overview}</p>
               </div>
-            ))
-          : movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+            </div>
+          ))
+          : (movies.map((movie) => <MovieCard key={movie.id} movie={movie} />))
+        ) : (
+          <p>No movies available.</p> // Handle the case when movies is undefined or empty
+        )}
+
       </div>
     </div>
   );

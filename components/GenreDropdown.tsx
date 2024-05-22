@@ -39,13 +39,28 @@ async function GenreDropdown() {
                 <DropdownMenuLabel>Select a Genre</DropdownMenuLabel>
                 <DropdownMenuSeparator />
 
-                {data.genres.map((genre) => (
+                {data && data.genres ? (data.genres.map((genre) => (
                     <DropdownMenuItem className="cursor-pointer" key={genre.id}>
                         <Link href={`/genre/${genre.id}?genre=${genre.name}`}>
                             {genre.name}
                         </Link>
                     </DropdownMenuItem>
-                ))}
+                ))) : (
+                    <p>Loading genres...</p> // handle loading state appropriately
+                )}
+            
+                {/* {data && data.genres ? (
+                    data.genres.map((genre) => (
+                        <DropdownMenuItem className="cursor-pointer" key={genre.id}>
+                            <Link href={`/genre/${genre.id}?genre=${genre.name}`}>
+                                {genre.name}
+                            </Link>
+                        </DropdownMenuItem>
+                    ))
+                ) : (
+                    <p>Loading genres...</p> // or handle the loading state appropriately
+                )} */}
+                
             </DropdownMenuContent>
         </DropdownMenu>
     )
